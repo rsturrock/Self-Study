@@ -1,0 +1,201 @@
+Up & Going
+
+Chapter 1: Into Programming
+
+source code - special instructions to tell computer tasks to perform.
+computer language - valid format and combinations of instructions, aka syntax.
+
+Statements ("Sentences") - a group of words, numbers, and operators that performs a specific task.
+
+a = b * 2;a and b =  variables, which are symbolic placeholders
+= and * are operators, they perform actions with the values and variables such as assignment and mathematic multiplication.
+
+2 = literal value
+
+Expression ("Words") - statements are made up of one or more expressions. An expression is any reference to a variable or value, or a set of variable(s) and value(s) combined with operators.a = b * 2;This statement has 4 expressions in it.
+
+	1) 2 is a literal value expression
+	2) b is a variable expression, which means to retrieve its current value
+	3) b * 2 is an arithmetic expression, which means to do the multiplication
+	4) a = b * 2 is an assignment expression, which means to assign the result of b*2 expression to the variable a
+
+A general expression that stands alone is also called an expression statement.
+b * 2;
+
+call expression, the entire statement is the function call expression itself
+
+alert ( a );
+
+Executing a Program
+
+Programs need to be executed also referred to as running the program
+
+interpreter or compiler is used to translate the code you write into commands a computer can understand.
+
+(Interpreting) some computers run the code from top to bottom
+(Compiling) some computers compile the code first then run the program after
+
+JavaScript engine compiles code first, runs it on the fly
+
+Outputconsole.log(.…); output to the user.  This statement is composed of two expressions.
+
+log(b) is referred to as a function call.
+console is an object reference, where the log(b) function is located
+
+Input
+
+HTML Form elements typically receive information from the user
+
+age = prompt( "Please tell me your age:" );console.log( age );
+
+prompt function and assign it to variable age.
+display value in age to the console as output.
+
+Operators - how we perform actions on variable and values
+the * operator performs multiplication.
+the = operator is used for assignment - calculate the right-hands side of the equation then put it into the variable that we specify on the left-hand side (target variable).
+
+var keyword that declares (aka create) variables.  You should always declare a variable by a name before you use it.
+
+Most common operators in JavaScript:
+
+Assignment: =Math: + (addition), - (subtraction), * (multiplication), and / (division)
+Compound Assignment: +=, -=. *=, and / =, combines a math operation with assignment. (a += 2) is the same as (a = a + 2 )
+
+Increment/Decrement: ++ (increment), -- (decrement) by 1 unit
+Object Property Access: . as in console.log() - Objects are values that hold or other values at specific named locations called properties.  obj.a means an object value called obj with a property of the name a.  obj.a is sort of like an address. obj (street) + .a(number)
+Equality: == (loose-equals), === (strict equals), != (loose not equals), !== (strict not equals)
+
+Comparison: < (less than), > (greater than), <= (less than or loose equals), >= (greater than or loose equals)Logical: && (and) || (or) as in || that selects either a or bThese particular operators are used to express compound conditionals, like if either a or b is true.
+
+Values & Types
+
+Types - different representations for values.
+When you do math, you want a number.
+String is one or more characters, words, sentences.
+Decisions is boolean (true or false).
+Values that are included directly in the source code are called literals.
+
+Other value types include: arrays, objects, and functions.
+
+Converting Between Types
+
+Converting between value types is called coercion.
+Example: have a number and need to print it onscreen, coercion takes place from the number value type to the string type.
+
+Number(); - explicitly coerces string to number type.
+
+== loose operators will implicitly coerce strings to numbers.
+"99.99" == 99 is true. (implicit coercion).
+
+Code Comments 
+
+Bits of text in your program that are inserted purely to explain things.
+
+Best Practices:* code without comments is suboptimal
+*too many comments is poorly written code
+*comments should explain why, not what.
+
+Single-line // and multiline /* */
+
+Variables 
+
+Variable - symbolic container that holds values, value can change over time.
+
+Usually declare a variable to hold a specific type of value, such as Number or String, known as static typing or type enforcement.
+
+Weak typing, or dynamic typing - emphasis on the value itself rather than the variable declaration.  This allows a single variable to represent a value no matter what type form that value may have.  More flexible.  JavaScript utilizes this method.
+
+All output is of the string value type.
+Blue = numbers that were implicitly coerced to string data type.
+Black = no coercion occurred during the console.log(); the value type was previously coerced.
+
+Primary purpose of variables: managing program state.
+
+State is tracking the changes to values as your program runs.
+Constants = centralizing value setting.  When you intend for the value NOT to change throughout the program.  Usually capitalized at the top of the program with _ between multiple words.
+
+Newest version of JavaScript is called ES6;
+
+Declare constants with:  const
+
+Blocks ("paragraphs")
+
+Often need to group a series of statements together, which we often call a block.  Typically attached to a conditional "if" statement.
+
+Conditionals("decisions")
+
+Conditionals are decision points in our programs.  Most common one being the if statement.
+
+If the condition is true, then do the follow { }else clause occurs if the if condition is not true.if statements expect boolean (true/false, yes/no, on/off) discrete conditions.  If you pass conditionals that is not boolean, JS will coerce it to the boolean type.switch is the shorthand for if/else
+specific values that are coerced to false in boolean are called "falsy" some examples include values like 0 or "".specific values that are coerced to true in boolean are called "truthy". Some examples include values like 99.99 or "free".
+
+Loops
+
+Repeating a set of actions until a condition fails, repeating only while the condition holds is a loop.
+
+loop  includes test condition + block {}, each execution is called an iteration.
+
+while (boolean condition) { action;};ordo {action;
+} while (boolean condition);
+
+while (true) loop runs forever because true = true
+
+for loops - intended purpose of counting a certain set of numbers
+
+for loops are made of 3 clauses:a) initialization clause (var i=0)
+b) conditional test clause ( I <= 9)
+c) update clause (i  = i + 1 )
+
+Functions ("little programs")
+
+function is generally a named section of code that can "called" by name, and the code inside it will run each time.
+
+functions can take arguments/parameters/values that you pass it:
+function printAmount(amt) {
+action with amt variable within;
+}
+
+functions can be stored in variables:
+
+amount = printAmount();
+console.log(amount);        // function will be called
+
+Functions are often used for code that you plan to call multiple times, but they can be useful to organize related bits of code into named collection, even if you use them once.
+
+Scope("page that you write on")also known lexical scope, scope is the "space" or "area" a particular piece of code has meaning.  Collection of variables as well as rules for how those variables are accessed by name.  Only code inside a specific function can access scoped variables.  
+
+Same variable name can appear in different functions because the two functions are in two different scopes.Scope can be nested inside another scope.  Innermost scope can access variables within its own scope as well as from the scope it is nested within.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
