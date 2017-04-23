@@ -1,1 +1,5 @@
 Programming Journal
+
+Declarations are hoised to the top of the scope.
+
+Assignment or any other expressions are NOT hoisted to the top of the scope.
