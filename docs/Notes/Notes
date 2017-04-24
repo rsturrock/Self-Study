@@ -1,0 +1,24 @@
+function Top() {
+        var a = 1;
+
+        function Middle() {
+            var b = 2;
+            
+            function Bottom() {
+                var c = 3;
+                console.log("This occurs first");
+                }
+            
+            Bottom();
+            console.log("This occurs second");
+
+        }
+        Middle();
+        console.log("This occurs last");
+}
+
+Top();
+
+Code runs top to down. Top(); runs first, definition or code inside Top(){} runs, then Middle();, followed by Bottom(); "PORTALING"
+
+        
