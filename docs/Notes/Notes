@@ -22,3 +22,6 @@ Top();
 Code runs top to down. Top(); runs first, definition or code inside Top(){} runs, then Middle();, followed by Bottom(); "PORTALING"
 
         
+let keeps the variables scope to the {} - won't affect the scope of variables above it.
+
+var keeps the variable's scope to the ENTIRE function, no matter how far nested it is.
