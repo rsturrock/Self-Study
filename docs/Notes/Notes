@@ -57,3 +57,8 @@ switch (a) {
 	default:
 		// fallback to here
 }
+--------------------------------------------------------------------------------------------------------------------------------------
+
+=  no coercion; value type stays the same.
+== implicit coercion, value type changes.
+=== explicit coercion, value type changes.
