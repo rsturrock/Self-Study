@@ -62,3 +62,9 @@ switch (a) {
 =  no coercion; value type stays the same.
 == implicit coercion, value type changes.
 === explicit coercion, value type changes.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+adding () to an expressions excecutes it
+
+---------------------------------------------------------------------------------------------------------------------------------------
