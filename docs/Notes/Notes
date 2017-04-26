@@ -68,3 +68,29 @@ switch (a) {
 adding () to an expressions excecutes it
 
 ---------------------------------------------------------------------------------------------------------------------------------------
+
+A function as a value and calling Objects within the function.
+
+function Test() {
+
+    function y(z,o) {
+        zvar = z;
+        ovar = o;
+    console.log("zvar value = " + zvar);
+    console.log("ovar value = " + ovar);
+
+    }
+
+    var Object = {
+        x: y
+    };
+
+    return Object;
+}
+
+var Ryan = Test();
+Ryan.x(1,2);
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
