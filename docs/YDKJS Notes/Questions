@@ -1,0 +1,7 @@
+#Questions
+
+1)
+  a) == checks for equality with coercion allowed.
+  b) === checks for equality without coercion allowed.
+  c) = checks for what?
+
