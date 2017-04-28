@@ -93,4 +93,14 @@ Ryan.x(1,2);
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
+If you want to pass multiple values from function to another function, you must return the first function's values in the form of an
+array.
+
+Then you will need to pass the array values so that the following function receives the array as individual parameters/arguments.
+
+You need to use this code in order to achieve this: 
+
+myFunction.apply(window, (function()));
+
+---------------------------------------------------------------------------------------------------------------------------------------
 
