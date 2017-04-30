@@ -1,0 +1,43 @@
+var i = 1;
+
+function FizzBuzzSolution(numberOfIterations,multiplesOfX,multiplesOfY) {
+	while ( i <= numberOfIterations ) {
+
+		if ( ( i % multiplesOfX == 0 ) && ( i % multiplesOfY == 0 ) ) {
+			console.log( i + " is both a multiple of " + multiplesOfX + " and " + multiplesOfY + ".");
+		}
+		if ( ( i % multiplesOfX == 0 ) && ( i % multiplesOfY !== 0 ) ) {
+			console.log( i + " is a multiple of " + multiplesOfX + ".");
+		}
+		if ( ( i % multiplesOfX !== 0 ) && ( i % multiplesOfY == 0 ) ) {
+			console.log( i + " is a multiple of "+ multiplesOfY + ".");
+		}
+		if ( ( i % multiplesOfX !== 0 ) && ( i % multiplesOfY !== 0 ) ) {
+			console.log( i + " is neither a multiple of " + multiplesOfX + " or " + multiplesOfY + ".");
+		}
+  	i++;
+	}
+}
+function UserPrompt() {
+	
+	var userChoice = prompt("Would you like to run FIZZBUZZ! (Y/N)?");
+    var userChoice = userChoice.toUpperCase();
+		
+		if ( ( userChoice !== "Y" ) && ( userChoice !== "y" ) && (userChoice !== "N") && (userChoice !== "n" ) ) {
+ 			alert("That isn't a valid choice. Please answer in the correct format using either 'Y' or 'N' .");
+			UserPrompt();
+		}
+		if ( userChoice == "Y" ) {
+			var numberOfIterations = prompt("How many numbers would you like your number sequence to be?");
+        	var multiplesOfX = prompt("FIZZBUZZ! will display multiples of a number of your choosing.  Please enter your first number.");
+			var multiplesOfY = prompt("FIZZBUZZ! will also display a second number's multiples.  Please enter your second number.");
+			alert("Check the devtools console to see your number sequence.  Thanks for trying out the program :)");
+			FizzBuzzSolution(numberOfIterations,multiplesOfX, multiplesOfY);
+		}
+		if ( userChoice == "N" ) {
+			alert("Program terminated.");
+		}
+}
+
+alert("Welcome to FIZZBUZZ! A program that specializes in finding multiples of any numbers you give it.");
+UserPrompt();
