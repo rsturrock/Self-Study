@@ -28,7 +28,7 @@ var keeps the variable's scope to the ENTIRE function, no matter how far nested 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-```switch (a) {
+switch (a) {
 	case 2:
 		// do something
 		break;
@@ -40,7 +40,7 @@ var keeps the variable's scope to the ENTIRE function, no matter how far nested 
 		break;
 	default:
 		// fallback to here
-}```
+}
 
 CASES must be in quotes like the following example:
 
