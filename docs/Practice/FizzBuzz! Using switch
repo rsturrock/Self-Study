@@ -1,0 +1,25 @@
+function NumberIteration(a) {
+	var a;
+	var i = 1;
+	while (i <= 10) {
+		switch (true) {
+			case ( i % a != 0 ):
+				console.log( i + " is not a multiple of " + a);
+				break;
+			case ( i % a == 0 ):
+				console.log( i + " is a multiple of " + a);
+				break;
+		}
+	i++;
+	}
+}
+
+function UserPrompt() {
+	var multiplesOfX = prompt("What number would you like to find multiples of?");
+	return multiplesOfX;
+}
+
+
+NumberIteration(UserPrompt());
+
+
