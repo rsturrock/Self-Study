@@ -1,4 +1,4 @@
-Up & Going
+#Book 1 - Up and Going
 
 Chapter 1: Into Programming
 
@@ -168,10 +168,218 @@ Scope("page that you write on")also known lexical scope, scope is the "space" 
 Same variable name can appear in different functions because the two functions are in two different scopes.Scope can be nested inside another scope.  Innermost scope can access variables within its own scope as well as from the scope it is nested within.
 
 
+Chapter 2: Into Programming
+
+Values & Types 
+
+JS has typed values not typed (static variables).
+
+Built-in types are:
+string
+number
+boolean
+null and undefined
+object
+symbol
+
+typeof operator examines the value and displays what type it is.
+
+type of a is asking for the type that the VALUE a is holding, not a itself.
+
+Objects 
+
+objects - compound value where you can set properties (named locations) that each hold their own values of any type.
+
+
+
+
+
+                = property (named location) holding value type:  ie: property name = A, value = "hello world"
+
+Objects can be accessed by:dot notation - object.a   (easiest to read and preferred)bracket notation - object["a"] (good to use when properties have special names)arrays and functions - should be thought of as subtypes -- specialized versions of the object type.
+
+Arrays - is an object that holds values (any type) not particularly in named properties/keys, but rather in numerically indexed positions.
+          
+accessed by - arr[0];Since arrays are special objects, they can also have properties, including the automatically updated length property.
+
+Functions - object subtype that is called.Functions have object properties, but are only referenced/used in limited cases.
+
+Built-In Type Methods
+
+A type method is a Native (object wrapper form), that pairs with the object that you reference it as a property.  The type method "boxes" the value  and then defines the said object based on the prototype.
+Examples of Object Wrapper Forms:Number ObjectString ObjectBoolean Object
+
+Comparing Values
+Two main types of value comparison: equality or inequality.  The result of any comparison is a strictly boolean value (true or false).
+
+Coercion - JS changing the value type.  implicit and explicit.explicit - obvious from the code.
+implicit - non-obvious side effect of some other operation.
+explicit coercion example:
+
+var a = "42";
+var b = Number( a );
+a;				// "42"
+b;				// 42 -- the number!
+
+implicit coercion example:
+
+var a = "42";
+var b = a * 1;	// "42" implicitly coerced to 42 here
+a;				// "42"
+b;				// 42 -- the number!
+
+
+Truthy & Falsy
+
+when a non-boolean value is coerced to a boolean.
+
+The specific list of "falsy" values in JavaScript is as follows:
+	• "" (empty string)
+	• 0, -0, NaN (invalid number)
+	• null, undefined
+	• false
+
+
+Any value that's not on this "falsy" list is "truthy." Here are some examples of those:
+	• "hello"
+	• 42
+	• true
+	• [ ], [ 1, "2", 3 ] (arrays)
+	• { }, { a: 42 } (objects)
+	• function foo() { .. } (functions)
+
+Equality
+
+Four equality operators: ==, ===, !=, !===
+
+== checks for equality with coercion allowed.
+=== checks for equality without coercion allowed. "strict equality"
+
+To boil down a whole lot of details to a few simple takeaways, and help you know whether to use == or === in various situations, here are my simple rules:
+	• If either value (aka side) in a comparison could be the true or false value, avoid == and use ===.
+	• If either value in a comparison could be of these specific values (0, "", or [] -- empty array), avoid == and use ===.
+	• In all other cases, you're safe to use ==. Not only is it safe, but in many cases it simplifies your code in a way that improves readability.
+
+== and === for non-primitive values, such as: objects (function and array) will simply check whether the references match, not anything about the underlying values.
+
+arrays are coerced to strings by default so when compared to another string, if both are equal then the boolean value is true.an array is compared to another array, the reference is what is being tested, not the underlying values (contents coerced to string type).
+
+inequality  The <, >, <=, and >= operators are used for inequality, referred to as "relational comparison"typically used to compare number values.
+
+When a string is compared to a number, the string is coerced to a Number Type.
+When a string is compared to another string, the comparison is done lexicographically (alphabetically like a dictionary).
+
+Value Types that cannot be coerced to a number, such as "foo", coerce to the NaN type.  Will yield the false boolean value for all comparisons.
+
+NaN is defined as neither greater-than nor less-than a number.
+
+Variables
+
+variable names (including function names) must be valid identifiers: must start with a-z, A-Z, $, or _.
+
+reserved words (cannot use in variable names) = for, in, if, null, true, false.
+
+Function Scopes
+
+Use the var keyword to declare a variable that will belong to the current function scope.
+
+Hoisting - where a var appears inside a scope, that declaration is taken to belong to the entire scope and accessible everywhere throughout.  "Hoisted" to the top of the enclosing scope.Nested Scopes
+
+When you declare a variable, it is available anywhere in that scope, as well as any lower/inner scopes.
+
+Variables defined within a nested scope cannot be accessed by any scopes outer to it.
+
+Not declaring a variable in a scope; ie.: i = 2; will result in auto global variable.  Always formally declare your variables.
+
+let - keyword allows you to declare variables for individual block pairs { . . }.declaring variables at the individual block level { .. } will declare those variables for the entire function.declaring variables at the function level ( .. ) will declare those variables for the nested function.In order to limit the scope of individual blocks nested within a function, you must use the let keyword.Conditionals if/else statements
+
+switch statements  - shorthand for if statements(in switch statements use the "==" & "===" relational operator. "=" is the assignment operator.
+use break; to  stop subsequent cases from executing.
+
+traditionally used in this format:
+
+switch (a) {
+	case 2:
+		// do something
+		break;
+	case 10:
+		// do another thing
+		break;
+	case 42:
+		// do yet another thing
+		break;
+	default:
+		// fallback to here
+}
+
+This switch statement uses a single value as a parameter and references a specific case or outcome based on the case value.
+
+
+switch (true) {
+	case ( a < 1 ):
+		// do something
+		break;
+	case ( a = 1 ):
+		// do another thing
+		break;
+	case ( a > 1 ):
+		// do yet another thing
+		break;
+	default:
+		// fallback to here
+}
+
+This switch statement allows for conditionals in each individual case.conditional operator / ternary operator - concise form of a single if/else statement.
+
+var a = 42;
+var b = (a > 41) ? "hello" : "world";
+// similar to:
+// if (a > 41) {
+//    b = "hello";
+// }
+// else {
+//    b = "world";
+// }
+
+Strict Mode
+
+"use strict";a mode that tightens the rules for certain behaviors in JS.  Generally used to keep the code safer.
+
+Can be applied to individual function or an entire file.
+
+One feature of strict mode disallows the implicit auto-global variable declaration.  Must declare all variables.
+
+Benefits of using strict mode:safer codemore optimizable
+future direction of the language
+
+Functions As Values
+
+function foo() {
+	// ..
+}
+
+foo is basically a variable in the outer enclosing scope,
+given reference to the function being declared, the function { .. } itself is a value.
+
+Therefore, functions can be passed to or returned from other functions.
+
+Functions should be thought as an expression, or value.
+
+var x = function bar(){
+	// ..
+};
+
+Example of a named function expression being assigned to the x variable.
+
+Immediately Invoked Function Expressions (IIFEs)
+
+A way to immediately execute a declared function.(function IIFE() { … } ) ();( function foo () { // do something} ) ();Put braces around the function, then execution braces "()" in front of the closed function.Function Reference is calling/referencing the function declaration and definition.foo = function reference     () = executing the function reference.
+
+
+
 
 
 
-
 
 
 
