@@ -1,5 +1,3 @@
-#Book 1 - Up and Going
-
 Chapter 1: Into Programming
 
 source code - special instructions to tell computer tasks to perform.
@@ -168,7 +166,7 @@ Scope("page that you write on")also known lexical scope, scope is the "space" 
 Same variable name can appear in different functions because the two functions are in two different scopes.Scope can be nested inside another scope.  Innermost scope can access variables within its own scope as well as from the scope it is nested within.
 
 
-Chapter 2: Into Programming
+Chapter 2: Into JavaScript
 
 Values & Types 
 
@@ -374,6 +372,129 @@ Example of a named function expression being assigned to the x variable.
 Immediately Invoked Function Expressions (IIFEs)
 
 A way to immediately execute a declared function.(function IIFE() { … } ) ();( function foo () { // do something} ) ();Put braces around the function, then execution braces "()" in front of the closed function.Function Reference is calling/referencing the function declaration and definition.foo = function reference     () = executing the function reference.
+
+Closureclosure is a way to "remember" and continue to access a function's scope (its variables) even once the function is finished running.
+
+function makeAdder(x) {
+	// parameter `x` is an inner variable
+// inner function `add()` uses `x`, so
+	// it has a "closure" over it
+	function add(y) {
+		return y + x;
+	};
+return add;
+}
+
+// `plusOne` gets a reference to the inner `add(..)`
+// function with closure over the `x` parameter of
+// the outer `makeAdder(..)`
+var plusOne = makeAdder( 1 );
+// `plusTen` gets a reference to the inner `add(..)`
+// function with closure over the `x` parameter of
+// the outer `makeAdder(..)`
+var plusTen = makeAdder( 10 );
+plusOne( 3 );		// 4  <-- 1 + 3
+plusOne( 41 );		// 42 <-- 1 + 41
+plusTen( 13 );		// 23 <-- 10 + 13
+
+reference = when a function is returned.
+
+plusOne = function reference
+
+Modules 
+Most common usage of closure in JS is the module pattern.
+
+
+function User(){
+	var username, password;
+function doLogin(user,pw) {
+		username = user;
+		password = pw;
+// do the rest of the login work
+	}
+var publicAPI = {
+		login: doLogin
+	};
+return publicAPI;
+}
+// create a `User` module instance
+var fred = User();
+fred.login( "fred", "12Battery34!" );
+
+
+Code Analysis:
+
+Executing User() creates an instance of the User module -- a whole new scope is created, and thus a whole new copy of each of these inner variables/functions. We assign this instance to fred. If we run User() again, we'd get a new instance entirely separate from fred.
+
+var fred = User(); returns publicAPI.  fred is a reference to the publicAPI function.
+
+publicAPI is an object with one property/method on it.login is a reference to the inner doLogin() function.publicAPI has reference (login) which has reference to doLogin which contains the variable username and password, because of this reference chain, the do.Login has closure over the variables and thus can still use them.
+
+this Identifier
+
+if a function has a this reference inside it, that this reference usually points to an object.
+
+Which object this points to depends on how the function was called.
+
+Objects must be called in order to be passed on to functions. ie: foo.call(obj1);
+
+Prototypes
+
+referencing means calling
+
+When you reference a property on an object that doesn't exist, JS will automatically use that object's internal prototype reference to find another object to look for the property on.When you use the expression Object.create("…");  You must reference it to another object.  This other object is known as the object prototype.
+
+internal prototype linkage occurs when you reference an property on an object that is not there.  What JS does then is falls back on the referenced property on the prototype you linked.
+
+var foo = {
+	a: 42
+};
+// create `bar` and link it to `foo`
+var bar = Object.create( foo );
+bar.b = "hello world";
+bar.b;		// "hello world"
+bar.a;		// 42 <-- delegated to `foo`
+
+var bar = Object.create(foo); This statement is creating the object bar and linking it to the object prototype "foo".
+
+since bar.a doesn't exist on the bar object, JS searches for the property on the prototype, foo.  This is called internal prototype linkage.
+
+Prototypes are important in a pattern called "behavior delegation", where you intentionally design your linked objects to be able to delegate from one to the other parts of the needed behavior.
+
+Old & New
+
+Some browsers don't support the newest features of JS.  Therefore, developers have come up with ways to bring this new features to older browsers.PolyfillingTaking a definition of a newer feature and producing a piece of code that's equivalent to the behavior, but is able to run in older JS environments.
+
+if (!Number.isNaN) {  
+	Number.isNaN = function isNaN(x) {
+		return x !== x;
+	};
+}
+
+if statement checks for ES6 featurex !== x  checks if the value does not equal itself.NaN is the only number that doesn't equal itself therefore boolean will yield True which is assigned to the Num.isNaN variable.  True = value is NaN.A value of 4 will yield false for the boolean, which means Num.isNaN = false.  Value is not NaN which means value IS a number.
+
+Transpiling 
+
+No way to polyfill new syntax.  Transpiling overcomes this.  Transpiling is transforming + compiling.
+
+Source code is authored in the new syntax, but deployed into the browser is the transpiled code in old syntax form.
+
+Benefits of transpiling:a) new syntax is designed to be more readable and maintainable.
+b) newer browsers are optimized and perform faster with the newer syntax.
+c) testing
+New features/syntax of JS are always coming out: transpilers are a standard part of the developmental process.Some examples of transpilers:BabelTraceurNon-JavaScript
+A lot of code you write isn't JS, but in fact the browser environment.
+
+most common non-JS is DOM API
+
+var el = document.getElementById( " foo " );
+
+document is a special object known as the "host object".
+
+input/output (I/O):alert( .. ) and console.log( .. )
+
+
+
 
 
 
