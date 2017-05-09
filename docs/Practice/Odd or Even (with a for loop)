@@ -1,0 +1,21 @@
+function oddOrEven(n) {
+	var m;
+	for ( m = 0; m <= n; m++) {
+
+		var i = ( m % 2 );
+	
+		if ( i == 0 ) {
+			console.log( n + " is an even number." );
+		}
+		if ( i != 0 ) {
+		console.log( n + " is an odd number." );
+		}
+	}
+}
+
+function userPrompt() { 
+	var numberSequence = prompt("Please input the length of a number sequence");
+	return numberSequence;
+}
+
+oddOrEven(userPrompt());
