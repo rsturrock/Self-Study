@@ -1,0 +1,120 @@
+Chapter 1: What is Scope?
+
+Fundamental paradigm of a programming language is the ability to store values in variables.
+
+Scope - well-defined set of rules for storing variables in some location, and for finding those variables at a later time.
+
+Compiler Theory
+
+JS is a compiled language.
+
+A chunk of source code, our program, will undergo three steps before it is executed.
+Compilation is composed of:1) Tokenizing/Lexing - breaking up a string of characters into tokens.  var a = 2; is broken up into: var, a, = , 2, and ; .  Lexing is JS compiler figuring out if tokens are distinct or combined.
+
+2) Parsing - takes the stream of tokens and turning it into a tree of nested elements, which collectively represent the grammatical structure of the program.  This tree is called an "AST" Abstract Syntax Tree.  Nodes include: Variable Declaration(var), Identifier(a), AssignmentExpression(=), NumericLiteral(2).
+3) Code-Generation - the process of taking an AST and turning it into executable code.  JS compiler taking the JS syntax and turning it into machine code.
+
+JS has to be compiled before (usually right before) it's executed.
+
+Understanding ScopeThe Cast - 
+
+1) Engine: responsible for start-to-finish compilation and execution of our JS program.
+
+2) Compiler: one of Engine's friends; handles all the dirty work of parsing and code-generation.
+
+3) Scope: another friend of Engine; collects and maintains a look-up list of all the declared identifiers (variables), and enforces a strict set of rules as to how these are accessible to currently executing code.
+
+Back & Forth
+
+var a = 2;
+
+1) Compiler will tokenize and parse into an AST tree.
+2) Compiler will then produce machine code.
+
+Encountering var a, Compiler asks Scope to see if a variable a already exists for that particular scope collection. If so, Compiler ignores this declaration and moves on. Otherwise, Compiler asks Scope to declare a new variable called a for that scope collection.
+Compiler then produces code for Engine to later execute, to handle the a = 2 assignment. The code Engine runs will first ask Scope if there is a variable called a accessible in the current scope collection. If so, Engine uses that variable. If not, Engine looks elsewhere (see nested Scope section below).
+3) Engine executes the code.
+	If engine doesn't find a variable in scope, JS will result in an error.
+	
+To summarize: to distinct actions are taken for a variable assignment: First Compiler declares a variable (if not declared in the current scope) and second, when executing, engine looks up the variable in Scope and assigns to it, if found.
+
+Compiler Speak
+
+Two types of ways Engine looks up a variable scope: LHS and RHS.
+
+LHS - Left hand side - when variable is  on the "left hand side" of an assignment operation.
+When the variable is ASSIGNED a value. When the reference is on the left.RHS - Right hand side - when a variable is on the "right hand side" of an assignment operation.  When a variable's value is "retrieved" - "go get the value" When the reference to the variable is on the right.
+
+console.log( a ); = RHS reference, nothing is being assigned, instead we are looking-up or retrieving the value of a so that value can be passed to console.log( .. );
+
+a = 2; LHS reference, we want to find the variable as a target for the =2 assignment operation.
+
+function() {….}.function name()  = function declaration.
+{….} = function definition.
+
+Engine/Scope Conversation
+
+function foo(a) {
+	console.log( a ); // 2
+}
+foo( 2 );
+Let's imagine the above exchange (which processes this code snippet) as a conversation. The conversation would go a little something like this:
+Engine: Hey Scope, I have an RHS reference for foo. Ever heard of it?
+Scope: Why yes, I have. Compiler declared it just a second ago. He's a function. Here you go.
+Engine: Great, thanks! OK, I'm executing foo.
+Engine: Hey, Scope, I've got an LHS reference for a, ever heard of it?
+Scope: Why yes, I have. Compiler declared it as a formal parameter to foo just recently. Here you go.
+Engine: Helpful as always, Scope. Thanks again. Now, time to assign 2 to a.
+Engine: Hey, Scope, sorry to bother you again. I need an RHS look-up for console. Ever heard of it?
+Scope: No problem, Engine, this is what I do all day. Yes, I've got console. He's built-in. Here ya go.
+Engine: Perfect. Looking up log(..). OK, great, it's a function.
+Engine: Yo, Scope. Can you help me out with an RHS reference to a. I think I remember it, but just want to double-check.
+Scope: You're right, Engine. Same guy, hasn't changed. Here ya go.
+Engine: Cool. Passing the value of a, which is 2, into log(..).
+
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md> 
+
+Nested Scope
+
+Scopes are nested inside other scopes.  So, if a variable cannot be found in the immediate scope, Engine consults the next outer containing scope, continuing until found or until the outermost (aka, global) scope has been reached.
+
+function foo(a) {
+	console.log( a + b );
+}
+var b = 2;
+foo( 2 ); // 4
+The RHS reference for b cannot be resolved inside the function foo, but it can be resolved in the Scope surrounding it (in this case, the global).
+So, revisiting the conversations between Engine and Scope, we'd overhear:
+Engine: "Hey, Scope of foo, ever heard of b? Got an RHS reference for it."
+Scope: "Nope, never heard of it. Go fish."
+Engine: "Hey, Scope outside of foo, oh you're the global Scope, ok cool. Ever heard of b? Got an RHS reference for it."
+Scope: "Yep, sure have. Here ya go."
+
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md> 
+
+Errors
+
+RHS look-ups that fail to ever find a variable result in a ReferenceError.
+
+LHS look-ups that fail to ever find a variable result in the automatic/implicit creation of a variable with global scope (only if strict mode is not enabled.)
+
+LHS look-ups that fail to find a variable (while strict mode is enabled) result in an Engine error of ReferenceError.
+
+TypeError is when you try to do an illegal/impossible action with a RHS reference variable. ie: execute as a function a non-function value, referencing a property on a null/undefined value.
+
+Review (TL;DR)
+Scope is the set of rules that determines where and how a variable (identifier) can be looked-up. This look-up may be for the purposes of assigning to the variable, which is an LHS (left-hand-side) reference, or it may be for the purposes of retrieving its value, which is an RHS (right-hand-side) reference.
+LHS references result from assignment operations. Scope-related assignments can occur either with the = operator or by passing arguments to (assign to) function parameters.
+The JavaScript Engine first compiles code before it executes, and in so doing, it splits up statements like var a = 2; into two separate steps:
+	1. First, var a to declare it in that Scope. This is performed at the beginning, before code execution.
+	2. Later, a = 2 to look up the variable (LHS reference) and assign to it if found.
+Both LHS and RHS reference look-ups start at the currently executing Scope, and if need be (that is, they don't find what they're looking for there), they work their way up the nested Scope, one scope (floor) at a time, looking for the identifier, until they get to the global (top floor) and stop, and either find it, or don't.
+Unfulfilled RHS references result in ReferenceErrors being thrown. Unfulfilled LHS references result in an automatic, implicitly-created global of that name (if not in "Strict Mode" [^note-strictmode]), or a ReferenceError (if in "Strict Mode" [^note-strictmode]).
+
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md> 
+
+
+
+
+
+
