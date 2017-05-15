@@ -111,8 +111,100 @@ The JavaScript Engine first compiles code before it executes, and in so doing,
 Both LHS and RHS reference look-ups start at the currently executing Scope, and if need be (that is, they don't find what they're looking for there), they work their way up the nested Scope, one scope (floor) at a time, looking for the identifier, until they get to the global (top floor) and stop, and either find it, or don't.
 Unfulfilled RHS references result in ReferenceErrors being thrown. Unfulfilled LHS references result in an automatic, implicitly-created global of that name (if not in "Strict Mode" [^note-strictmode]), or a ReferenceError (if in "Strict Mode" [^note-strictmode]).
 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md> 
 
 
+Chapter 2: Lexical Scope
+
+Scope - the set of rules that govern how the Engine can look up a variable by its identifier name and find it.
+
+Lexical Scope - most common type of scope.  As opposed to dynamic scope.
+
+Lex-time
+
+First traditional phase is called lexing (aka tokenizing).
+
+Lexical Scope - is scope that is defined at lexing time.  Lexical scope is based on where variables and blocks of scope are authored, by you, at write time, set in stone by the time the lexer processes your code.
+
+
+
+Bubble 1 - encompasses global scope, one identifier foo.
+
+Bubble 2 - encompasses scope of foo, identifiers = a, b, bar.
+
+Bubble 3 - encompasses scope of bar, identifiers = c.
+
+Scope bubbles are defined by where the blocks of scope are written (DEFINED), which one is nested inside the other one.
+
+Bubbles are discretely nested, no bubbles are crossing over boundaries.  No bubble for some function can simultaneously exist (partially) inside two other outer scope bubbles.
+
+Look-ups
+
+Engine executes console.log(a,b,c); and looks for the three referenced variables: a,b,c.
+a is found in the scope of foo.
+b is found in the scope of foo.
+c is found in the scope of bar.
+
+Scope look-ups stop once it finds the first match.
+
+No matter where a function is invoked from, or even how it is invoked, its lexical scope is only defined by where the function was declared.
+
+Cheating Lexical
+
+Cheating lexical scope leads to poorer performance.
+
+eval(..) function takes a string as an argument, and treats the contents of the string as if it had actually be authored code at that point in the program.
+
+function foo(str, a) {
+	eval( str ); // cheating!
+	console.log( a, b );
+}
+var b = 2;
+foo( "var b = 3;", 1 ); // 1 3
+
+eval(str) evaluates the string and creates var b with scope foo.
+
+with - short-hand for making multiple property references against an object without repeating the object reference itself each time.
+
+function foo(obj) {
+	with (obj) {
+		a = 2;
+	}
+}
+var o1 = {
+	a: 3
+};
+var o2 = {
+	b: 3
+};
+foo( o1 );
+console.log( o1.a ); // 2
+foo( o2 );
+console.log( o2.a ); // undefined
+console.log( a ); // 2 -- Oops, leaked global
+
+console.log(o2.a); is undefined even though an auto-created global variable a is created with value = 2. (That is why console.log(a) yields 2).  console.log(o2.a) remains undefined because there is no PROPERTY created/named o2.a.
+
+The with statement takes an object, one which as zero or more properties, and treats that object if is a wholly separate lexical scope, and thus the object's properties are treated as lexically defined identifiers in that "scope".  
+
+Performance
+
+both eval(…) and with cheat author-time defined lexical scope by modifying or creating new lexical scope at runtime.
+
+JS can pre-determine where all variable/function declarations are, therefore less resources are required to resolve identifiers during execution.
+
+However, if eval() and with are used, the engine has to assume that identifiers can exist everywhere therefore cannot optimize for variable/function declarations.
+
+Code will run slower.
+
+Review (TL;DR)
+Lexical scope means that scope is defined by author-time decisions of where functions are declared. The lexing phase of compilation is essentially able to know where and how all identifiers are declared, and thus predict how they will be looked-up during execution.
+Two mechanisms in JavaScript can "cheat" lexical scope: eval(..) and with. The former can modify existing lexical scope (at runtime) by evaluating a string of "code" which has one or more declarations in it. The latter essentially creates a whole new lexical scope (again, at runtime) by treating an object reference as a "scope" and that object's properties as scoped identifiers.
+The downside to these mechanisms is that it defeats the Engine's ability to perform compile-time optimizations regarding scope look-up, because the Engine has to assume pessimistically that such optimizations will be invalid. Code will run slower as a result of using either feature. Don't use them.
+
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch2.md> 
+
+
 
 
 
