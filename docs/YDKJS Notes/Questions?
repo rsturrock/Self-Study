@@ -10,3 +10,5 @@ Case C) is not a relational operator but an assignment operator.
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 2) What are the 3 steps of compilation?
+
+Token/Parsing
