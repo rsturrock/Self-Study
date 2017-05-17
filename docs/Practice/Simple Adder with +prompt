@@ -1,0 +1,16 @@
+function adder(x,y) {
+
+	var q = x + y;
+	console.log(x);
+	console.log(y);
+	console.log(q);
+
+}
+
+function user() {
+	var p = +prompt("Enter your first number");
+	var t = +prompt("Enter your second number"); // +prompt converts string type input to number type.
+	return [p,t];
+}
+
+adder.apply(window, (user()));
