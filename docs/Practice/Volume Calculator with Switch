@@ -1,0 +1,65 @@
+function volumeCalculatorRectangularPrism(w,h,l) {
+	var shape = "box";
+	var volumeRectangularPrism = w * h * l;
+    	console.log(volumeRectangularPrism);
+	return [volumeRectangularPrism,shape];
+}
+
+function volumeCalculatorSphere(r) {    
+    	var shape = "sphere";
+	var volumeSphere = (Math.pow(r,3)*(4/3)*(3.14));
+	console.log(volumeSphere);
+	return [volumeSphere,shape];
+}
+
+function volumeCalculatorCylinder(r,h) {
+	var shape = "cylinder";
+	var volumeCylinder = ((3.14)*(Math.pow(r,2)*h));
+	return [volumeCylinder,shape];
+}
+
+function freightContainerVolume(cargoVolume,shape) {
+	var freightContainerVolume = 10000000;
+	var i = 0;
+	
+	while ( freightContainerVolume >= cargoVolume ) {
+		freightContainerVolume -= cargoVolume;
+		i++;
+	}
+	console.log("You were able to fit " + i + " " + shape + "-shaped objects" + " in your container.");
+	console.log("You have " + freightContainerVolume + " cm(s) left in your container.");
+}
+	
+	
+
+
+function userPrompt() {
+
+	var choice = prompt("What type of cargo are you shipping? a) Box b) Sphere c) Cylinder?");
+	choice = choice.toUpperCase();
+
+	switch(true) {
+		case ( choice == "A" ):
+			var w,h,l = 0;
+			var w = +prompt("Enter the width");
+			var h = +prompt("Enter the height");
+			var l = +prompt("Enter the length");
+			return volumeCalculatorRectangularPrism(w,h,l);
+			break;
+		case ( choice == "B" ):
+			var r = 0;
+			var r = +prompt("Enter the radius");
+			return volumeCalculatorSphere(r);
+			break;
+		case ( choice == "C" ):
+			var r,h = 0;
+			var r = +prompt("Enter the radius");
+			var h = +prompt("Enter the height");
+			return volumeCalculatorCylinder(r,h);
+			break;
+	}
+}
+
+
+var cargoVolume = userPrompt();
+freightContainerVolume.apply(window,((cargoVolume)));
