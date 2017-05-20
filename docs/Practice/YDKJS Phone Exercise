@@ -1,4 +1,4 @@
-#Phone Exercise
+#Phone Exercise YDKJS
 
 const PHONE_PRICE = 24.95;
 const ACCESSORY_PRICE = 8.95;
@@ -36,4 +36,6 @@ while ( bankaccount >= (PHONE_PRICE + (PHONE_PRICE * TAX))) {
 
 console.log("You have purchased" + " " + numOfPhones + " phones and " + numOfAccessories + " accessories.");
 console.log("You have " + FormatPrice(bankaccount) + " left in your account");
+
+
 
