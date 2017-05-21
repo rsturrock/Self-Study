@@ -1,4 +1,4 @@
-#Area of a Triangle
+#Area of a Triangle Practice
 
 function areaOfTriangle() {
 	var area = (( userInput.x * userInput.y ) / 2 );
