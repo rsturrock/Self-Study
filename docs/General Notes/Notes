@@ -118,7 +118,7 @@ Lexical Scope - What JS utilizes.  Scope is defined where the function was defin
 
 ---------------------------------------------------------------------------------------------------------------------------------------
  
- +prompt converts string type input to number type and stores it in a variable.
+ +prompt converts string type input to number type and stores it in a variable..
  
  ---------------------------------------------------------------------------------------------------------------------------------------
 
