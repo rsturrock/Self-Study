@@ -19,7 +19,7 @@ function Top() {
 
 Top();
 
-Code runs top to down. Top(); runs first, definition or code inside Top(){} runs, then Middle();, followed by Bottom(); "PORTALING"
+Code runs top to down. Top(); runs first, definition or code inside Top(){} runs, then Middle(); followed by Bottom(); "PORTALING"
 
         
 let keeps the variables scope to the {} - won't affect the scope of variables above it.
