@@ -1,6 +1,6 @@
 function oddOrEven(n) {
 	var m;
-	for ( m = 0; m <= n; m++) {
+	for ( m = 0; m <= n; m++) { // for loop
 
 		var i = ( m % 2 );
 	
