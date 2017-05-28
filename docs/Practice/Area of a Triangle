@@ -30,6 +30,6 @@ areaOfTriangle(userInput);
 
 // references the userInput object to the areaOfTriangle() function.
 
-function areaOfTriangle(){ .. }
+function areaOfTriangle(){ ... }
 
 // the definition of the function has closure over the variables of the userInput object.  In order to access the object.properties within the function, the respective identifiers must be referenced: "userInput.x" & "userInput.y".
