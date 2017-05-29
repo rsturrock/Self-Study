@@ -17,6 +17,7 @@ function Top() {
         console.log("This occurs last");
 }
 
+
 Top();
 
 Code runs top to down. Top(); runs first, definition or code inside Top(){} runs, then Middle(); followed by Bottom(); "PORTALING".
