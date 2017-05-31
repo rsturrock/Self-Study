@@ -39,5 +39,5 @@ function UserPrompt() {
 }
 
 alert("Welcome to FIZZBUZZ!!! A program that specializes in finding multiples of any numbers you give it.");
-UserPrompt();
+UserPrompt(); // run.
 
