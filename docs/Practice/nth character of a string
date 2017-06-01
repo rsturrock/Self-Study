@@ -1,0 +1,12 @@
+#nth character of a string
+
+var string = prompt("Enter a string");
+var nthCharacter = prompt("What nth position character would you like to determine?");
+
+while (nthCharacter > string.length) {
+	nthCharacter = prompt("nth position does not exist on string, choose a smaller number");
+}
+
+var nthPosition = string[nthCharacter];
+
+console.log( "The " + nthCharacter + "th character of " + string + " is " +  "\"" + nthPosition + "\"." );
