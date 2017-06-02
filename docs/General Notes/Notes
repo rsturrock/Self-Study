@@ -126,6 +126,6 @@ Lexical Scope - What JS utilizes.  Scope is defined where the function was defin
 push(); // adds a value to the end of an array.
 pop(); // removes a value from the end of an array.
 shift(); // removes a value to the beginning of an array.
-unshift(); // adds a value to the beginning of an array.com
+unshift(); // adds a value to the beginning of an array.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
