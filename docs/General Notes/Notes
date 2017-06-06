@@ -129,3 +129,5 @@ shift(); // removes a value to the beginning of an array.
 unshift(); // adds a value to the beginning of an array.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
+
+functions create scope
