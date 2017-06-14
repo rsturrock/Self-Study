@@ -130,6 +130,6 @@ unshift(); // adds a value to the beginning of an array.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-functions create scope
+functions are the most common unit of scope. block scope can be achieved by using the identifier "let".
 
 ---------------------------------------------------------------------------------------------------------------------------------------
