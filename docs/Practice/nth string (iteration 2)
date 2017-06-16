@@ -1,0 +1,10 @@
+var string = prompt("Enter a string.");
+var nthCharacter = prompt("Enter the nTh position of a string that you would like to determine.");
+
+if ( nthCharacter > string.length ) {
+	console.log("That position doesn't exist on the string you provided.");
+}
+if ( nthCharacter < string ) {
+	console.log("The " + nthCharacter + " of " + string + " is " + string[nthCharacter] + ".");
+}
+
