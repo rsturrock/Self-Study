@@ -1,0 +1,29 @@
+function FizzBuzz(x, y, z) {
+	var i = 1;
+	while ( i <= x ) {
+		if ( i % y == 0 && i % z == 0) {
+			console.log( i + " is a multiple of " + y + " and " + z );
+		}
+		if ( i % y == 0 && i % z != 0) {
+			console.log( i + " is a multiple of " + y );
+		}
+		if ( i % y != 0 && i % z == 0) {
+			console.log( i + " is a multiple of " + z );
+		}
+		if ( i % y != 0 && i % z != 0) {
+			console.log( i );
+		}
+	i++;
+	}
+	
+}
+
+function UserPrompt() {
+	var sequenceLength = prompt("Enter the sequence length");
+	var multipleOne = prompt("Enter the first multiple");
+	var multipleTwo = prompt("Enter the second multiple");
+	return [sequenceLength, multipleOne, multipleTwo];
+}
+
+	
+FizzBuzz.apply(window, UserPrompt());
