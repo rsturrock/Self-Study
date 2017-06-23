@@ -133,3 +133,12 @@ unshift(); // adds a value to the beginning of an array..
 functions are the most common unit of scope. block scope can be achieved by using the identifier "let".
 
 ---------------------------------------------------------------------------------------------------------------------------------------
+
+use let in for loops:
+
+for (let i = 1...ect.)
+
+limits the scope of i to enclosing block.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
