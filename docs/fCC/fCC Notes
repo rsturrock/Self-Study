@@ -35,3 +35,29 @@ function golfScore(par, strokes) {
 golfScore(5, 4);
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+#Dynamic Data Structure
+
+var myMusic = [
+  {
+    "artist": "Billy Joel",
+    "title": "Piano Man",
+    "release_year": 1973,
+    "formats": [ 
+      "CS", 
+      "8T", 
+      "LP" ],
+    "gold": true
+  },
+  {
+    "artist": "Com Truise",
+    "title": "Syrthio",
+    "release_year": 2017,
+    "formats": [
+      "CS",
+      "8T",
+      "LP"],
+    "gold": false
+  }
+  // Add record here
+];
+
