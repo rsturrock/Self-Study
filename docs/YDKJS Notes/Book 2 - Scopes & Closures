@@ -204,7 +204,236 @@ The downside to these mechanisms is that it defeats the Engine's ability to per
 
 From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch2.md> 
 
-
+Chapter 3: Function vs. Block Scope
+ 
+Scope From Functions
+
+JS has function-based scope.
+ 
+function foo(a) {
+        var b = 2;
+// some code
+function bar() {
+                // ...
+        }
+// more code
+var c = 3;
+}
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+Scope bubble for foo(..) includes identifiers: a, b, c, and bar.
+Bar has its own scope bubble.
+Global scope has its own scope which includes identifiers: foo.
+ 
+Function scope encourages the idea that all variables belong to a function, and can be used and reused throughout the entirety of the function.
+ 
+Hiding In Plain Scope
+ 
+You can "hide" code by wrapping a function declaration around it.
+This is useful because it can minimally exposes what is necessary = less resources used.
+Principle of Least Privilege.
+ 
+function doSomething(a) {
+        b = a + doSomethingElse( a * 2 );
+console.log( b * 3 );
+}
+function doSomethingElse(a) {
+        return a - 1;
+}
+var b;
+doSomething( 2 ); // 15
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+var b and function doSomethingElse() are exposed = bad software design.
+ 
+function doSomething(a) {
+        function doSomethingElse(a) {
+                return a - 1;
+        }
+var b;
+b = a + doSomethingElse( a * 2 );
+console.log( b * 3 );
+}
+doSomething( 2 ); // 15
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+var b and function doSomethingElse() are now enclosed within the doSomething() scope.
+ 
+Collision Avoidance
+ 
+avoids unintended collision between two different identifiers with the same name but different usages.
+ 
+function foo() {
+        function bar(a) {
+                i = 3; // changing the `i` in the enclosing scope's for-loop
+                console.log( a + i );
+        }
+for (var i=0; i<10; i++) {
+                bar( i * 2 ); // oops, infinite loop ahead!
+        }
+}
+foo();
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+the i=3 in the bar() will overwrite. Compiler will do a LSH lookup to find it in the next level scope (for loop) (since the i in the bar() is not locally declared).
+ 
+changing the i to var i will fix the problem. also known as a shadowed variable.
+ 
+Global "Namespaces"
+ 
+libraries are typically created as an object with various internal/private functions (as properties of said object). This pattern is called Global Namespace.
+ 
+Functions As Scopes
+ 
+var a = 2;
+(function foo(){ // <-- insert this
+var a = 3;
+        console.log( a ); // 3
+})(); // <-- and this
+console.log( a ); // 2
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+Instead of polluting the global scope with identifier "foo", writing the function as "(function foo()…ect." renders it as function-expression.
+ 
+Function expression = the identifier foo is not bound in the enclosing global scope, but instead bound only inside its own function.
+ 
+In other words, (function foo(){ .. }) as an expression means the identifier foo is found only in the scope where the .. indicates, not in the outer scope. Hiding the name foo inside itself means it does not pollute the enclosing scope unnecessarily.
+ 
+Anonymous vs. Named
+ 
+setTimeout( function(){
+        console.log("I waited 1 second!");
+}, 1000 );
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+function expression as a callback parameter.
+ 
+function expressions can be anonymous, but function declarations cannot omit the name.
+ 
+Drawback of anonymous functions:
+1) hard to debug, difficult to trace
+2) difficult to self-reference for recursion
+3) anonymous functions omit a name that is often helpful in providing readable/understandable code
+ 
+Inline function expressions - addresses all the drawbacks to anonymous functions.
+ 
+setTimeout( function timeoutHandler(){ // <-- Look, I have a name!
+        console.log( "I waited 1 second!" );
+}, 1000 );
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+Invoking Function Expressions Immediately
+ 
+IIFE - Immediately Invoked Function Expression.
+ 
+wrapping the function with ( ) pair and then executing it by adding the () on the ended.
+(function foo(){ .. })()
+ 
+var a = 2;
+(function IIFE(){
+var a = 3;
+        console.log( a ); // 3
+})();
+console.log( a ); // 2
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+IIFEs can be passed argument(s):
+ 
+var a = 2;
+(function IIFE( global ){
+var a = 3;
+        console.log( a ); // 3
+        console.log( global.a ); // 2
+})( window );
+console.log( a ); // 
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+window = object in the global
+ 
+UMD (Universal Module Definition)
+ 
+var a = 2;
+(function IIFE( def ){
+        def( window );
+})(function def( global ){
+var a = 3;
+        console.log( a ); // 3
+        console.log( global.a ); // 2
+});
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+The def function expression is defined in the second-half of the snippet, and then passed as a parameter (also called def) to the IIFE function defined in the first half of the snippet. Finally, the parameter def (the function) is invoked, passing window in as the global parameter.
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+Blocks As Scopes
+ 
+Functions are the most common unit of scope.
+ 
+Block-scoping = declaring variables as close as possible, as local as possible, to where they will be used.
+ 
+var foo = true;
+if (foo) {
+        var bar = foo * 2;
+        bar = something( bar );
+        console.log( bar );
+}
+ 
+From <https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+bar is still belongs to the enclosing scope.
+ 
+try/catch can create block scope.
+ 
+let - keyword attaches the variable declaration to the scope of whatever block { . . } it's contained in. let implicitly hijacks any block's scope for its variable declaration.
+ 
+var foo = true;
+if (foo) {
+        let bar = foo * 2;
+        bar = something( bar );
+        console.log( bar );
+}
+console.log( bar ); // ReferenceError
+ 
+From <https://github.com/Egkrateia/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+Best practice to use explicit block-scoping style to make the block scope obvious.
+ 
+declarations with let will not hoist to the entire scope of the block they appear in.
+ 
+{
+   console.log( bar ); // ReferenceError!
+   let bar = 2;
+}
+ 
+From <https://github.com/Egkrateia/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+ 
+let loops
+ 
+binds the variable declaration to the for loop, but also re-binds it for each iteration of the loop. This will become important with closure = garbage collection/resource management.
+ 
+const creates block-scoped variables, but whose values are fixed. Attempt on changing their values will result in a reference error.
+ 
+Review (TL;DR)
+Functions are the most common unit of scope in JavaScript. Variables and functions that are declared inside another function are essentially "hidden" from any of the enclosing "scopes", which is an intentional design principle of good software.
+But functions are by no means the only unit of scope. Block-scope refers to the idea that variables and functions can belong to an arbitrary block (generally, any { .. } pair) of code, rather than only to the enclosing function.
+Starting with ES3, the try/catch structure has block-scope in the catch clause.
+In ES6, the let keyword (a cousin to the var keyword) is introduced to allow declarations of variables in any arbitrary block of code. if (..) { let a = 2; } will declare a variable a that essentially hijacks the scope of the if's { .. } block and attaches itself there.
+Though some seem to believe so, block scope should not be taken as an outright replacement of var function scope. Both functionalities co-exist, and developers can and should use both function-scope and block-scope techniques where respectively appropriate to produce better, more readable/maintainable code.
+[^note-leastprivilege]: Principle of Least Privilege
+ 
+From <https://github.com/Egkrateia/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch3.md> 
+
 
 
 
